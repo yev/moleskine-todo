@@ -2,7 +2,8 @@ spring:
     datasource:
         username: postgres
         url: jdbc:postgresql://localhost:5432/moleskine_todo
-        password: yuuc
+        #you should set your password for db in your environment variable named ENV_DB_PASSWD
+        password: ${ENV_DB_PASSWD}
     jpa:
         show-sql: true
         generate-ddl: true
