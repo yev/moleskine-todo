@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        username: postgres
+        url: jdbc:postgresql://localhost:5432/moleskine_todo
+        password: yuuc
+    jpa:
+        show-sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: "create-drop"
+
