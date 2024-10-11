@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+    title: Todo Application API
+    version: 1.0.0-SNAPSHOT
+    description: A simple API for managing todos
+
+servers:
+    - url: http://localhost:8080
+
+paths:
+    /todos:
+        post:
+            summary: Create a new todo
+            operationId: createTodo
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: "Buy groceries"
+                            required:
+                                - title
+            responses:
+                '201':
+                    description: Todo created successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        example: 1
+                                    title:
+                                        type: string
+                                        example: "Buy groceries"
+                '400':
+                    description: Invalid input
+
+    /todos/{id}:
+        get:
+            summary: Retrieve a todo by ID
+            operationId: getTodoById
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  description: The ID of the todo to retrieve
+                  schema:
+                      type: integer
+            responses:
+                '200':
+                    description: Todo retrieved successfully
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        example: 1
+                                    title:
+                                        type: string
+                                        example: "Buy groceries"
+                '404':
+                    description: Todo not found
+
+    /todos/search:
+        get:
+            summary: Search todos by title
+            operationId: searchTodosByTitle
+            parameters:
+                - name: title
+                  in: query
+                  required: true
+                  description: The title of the todo to search for
+                  schema:
+                      type: string
+            responses:
+                '200':
+                    description: List of matc
