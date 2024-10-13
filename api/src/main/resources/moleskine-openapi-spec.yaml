@@ -7,6 +7,18 @@ info:
 servers:
     - url: http://localhost:8080
 
+components:
+    schemas:
+        ToDoDto:
+            type: object
+            required:
+                - title
+            properties:
+                title:
+                    type: string
+                    description: title
+                    example: "my title"
+
 paths:
     /todos:
         post:
@@ -82,4 +94,10 @@ paths:
                       type: string
             responses:
                 '200':
-                    description: List of matc
+                    description: List of todos matching the search criteria
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/ToDoDto'

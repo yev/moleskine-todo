@@ -12,11 +12,6 @@
     <description>only BL</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,5 +25,4 @@
             <version>42.7.3</version>
         </dependency>
     </dependencies>
-
 </project>
