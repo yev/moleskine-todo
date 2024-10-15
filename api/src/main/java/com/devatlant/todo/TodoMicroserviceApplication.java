@@ -10,5 +10,4 @@ public class TodoMicroserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TodoMicroserviceApplication.class, args);
 	}
-
 }

@@ -19,4 +19,7 @@ public class Todo{
 
     @Column
     private String title;
+
+    @Column(name = "is_completed")
+    private Boolean isCompleted;
 }

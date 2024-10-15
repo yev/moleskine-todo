@@ -12,6 +12,7 @@ class TodoMicroserviceApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

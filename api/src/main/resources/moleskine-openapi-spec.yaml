@@ -3,6 +3,10 @@ info:
     title: Todo Application API
     version: 1.0.0-SNAPSHOT
     description: A simple API for managing todos
+    contact:
+        email: yev@devatlant.com
+        name: Yevgen Voronetski
+        url: https://devatlant.com
 
 servers:
     - url: http://localhost:8080
@@ -13,11 +17,35 @@ components:
             type: object
             required:
                 - title
+                - isCompleted
             properties:
                 title:
                     type: string
                     description: title
                     example: "my title"
+                isCompleted:
+                    type: boolean
+                    description: is this todo item is done
+                    example: true
+        ApiErrorItem:
+            type: object
+            required:
+                - name
+                - errorDescription
+                - gitId
+            properties:
+                name:
+                    type: string
+                errorDescription:
+                    type: string
+                gitId:
+                    type: string
+
+        ApiError:
+            type: array
+            items:
+                $ref: "#/components/schemas/ApiErrorItem"
+
 
 paths:
     /todos:
@@ -29,29 +57,20 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: object
-                            properties:
-                                title:
-                                    type: string
-                                    example: "Buy groceries"
-                            required:
-                                - title
+                            $ref: "#/components/schemas/ToDoDto"
             responses:
                 '201':
                     description: Todo created successfully
                     content:
                         application/json:
                             schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        example: 1
-                                    title:
-                                        type: string
-                                        example: "Buy groceries"
+                                $ref: "#/components/schemas/ToDoDto"
                 '400':
                     description: Invalid input
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiError"
 
     /todos/{id}:
         get:
@@ -70,14 +89,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        example: 1
-                                    title:
-                                        type: string
-                                        example: "Buy groceries"
+                                $ref: "#/components/schemas/ToDoDto"
                 '404':
                     description: Todo not found
 
