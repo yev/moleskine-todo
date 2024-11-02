@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedDate;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -28,7 +28,7 @@ public class Todo{
     @Column(name = "is_completed")
     private Boolean isCompleted;
 
-    @CreationTimestamp
+    @CreatedDate
     @Column(updatable = false, name = "created_at")
     private OffsetDateTime createdAt;
     @UpdateTimestamp

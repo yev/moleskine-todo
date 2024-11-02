@@ -46,12 +46,10 @@ public class Controller implements TodosApi {
 
     @Override
     public ResponseEntity<ToDoDto> updateTodo(final ToDoDto toDoDto) {
-        if (service.findById(toDoDto.getId()).isEmpty()){
-            log.error("todo with id {} is not found in db", toDoDto.getId());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(toDoDto);
-        }
-        final var updatedTodo = service.saveNew(todoMapper.fromDto(toDoDto));
-        return ResponseEntity.ok(todoMapper.toDto(updatedTodo));
+        final var updatedTodoOpt = service.update(todoMapper.fromDto(toDoDto));
+        return updatedTodoOpt
+            .map(todo -> ResponseEntity.ok(todoMapper.toDto(todo)))
+            .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(toDoDto));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
