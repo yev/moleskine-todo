@@ -3,8 +3,7 @@ package com.devatlant.todo.api;
 import com.devatlant.todo.mapper.TodoMapper;
 import com.devatlant.todo.model.ApiErrorItem;
 import com.devatlant.todo.model.ToDoDto;
-import com.devatlant.todo.service.TodoRepository;
-import jakarta.transaction.Transactional;
+import com.devatlant.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +25,15 @@ import java.util.List;
 @RestController
 @Slf4j
 public class Controller implements TodosApi {
-    private final TodoRepository todoRepository;
     private final TodoMapper todoMapper;
+    private final TodoService service;
 
     @Autowired
     private final GitProperties gitProperties;
 
     @Override
-    @Transactional
     public ResponseEntity<ToDoDto> createTodo(final ToDoDto createTodoRequest) {
-        var savedTodo = todoRepository.save(todoMapper.fromDto(createTodoRequest));
+        var savedTodo = service.saveNew(todoMapper.fromDto(createTodoRequest));
         return ResponseEntity.ok(todoMapper.toDto(savedTodo));
     }
 
@@ -43,7 +41,17 @@ public class Controller implements TodosApi {
     public ResponseEntity<List<ToDoDto>> searchTodosByTitle(final String title) {
         var likeWildcardsSearch = "%"+title+"%";
         log.info("title with wildcard '{}'", likeWildcardsSearch);
-        return ResponseEntity.ok(todoMapper.toListDto(todoRepository.findAllByTitleLike(likeWildcardsSearch)));
+        return ResponseEntity.ok(todoMapper.toListDto(service.findAllByTitleLike(likeWildcardsSearch)));
+    }
+
+    @Override
+    public ResponseEntity<ToDoDto> updateTodo(final ToDoDto toDoDto) {
+        if (service.findById(toDoDto.getId()).isEmpty()){
+            log.error("todo with id {} is not found in db", toDoDto.getId());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(toDoDto);
+        }
+        final var updatedTodo = service.saveNew(todoMapper.fromDto(toDoDto));
+        return ResponseEntity.ok(todoMapper.toDto(updatedTodo));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

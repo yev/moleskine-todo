@@ -19,6 +19,10 @@ components:
                 - title
                 - isCompleted
             properties:
+                id:
+                    type: integer
+                    description: technical id. Bad idea to expose but for my learning purposes it's ok.
+                    example: 123
                 title:
                     type: string
                     description: title
@@ -27,6 +31,12 @@ components:
                     type: boolean
                     description: is this todo item is done
                     example: true
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
         ApiErrorItem:
             type: object
             required:
@@ -71,7 +81,40 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/ApiError"
-
+        patch:
+            summary: update existing todo
+            operationId: updateTodo
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ToDoDto"
+            responses:
+                201:
+                    description: todo was updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ToDoDto"
+                400:
+                    description: Invalid input
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiError"
+                404:
+                    description: entity not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiError"
+                500:
+                    description: internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ApiError"
     /todos/{id}:
         get:
             summary: Retrieve a todo by ID

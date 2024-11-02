@@ -3,7 +3,7 @@ package com.devatlant.todo.api;
 import com.devatlant.todo.business.entity.Todo;
 import com.devatlant.todo.mapper.TodoMapperImpl;
 import com.devatlant.todo.model.ToDoDto;
-import com.devatlant.todo.service.TodoRepository;
+import com.devatlant.todo.service.TodoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,29 +21,29 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**
+ * slice test for api contract
  * @author yevgen voronetski
  */
 @WebMvcTest()
-@Import({TodoMapperImpl.class})
+@Import({TodoMapperImpl.class, GitProperties.class})
 public class ApiContractSliceTest {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private TodoRepository todoRepository;
-    @MockBean
-    private GitProperties gitProperties;
+    private TodoService service;
+
     @Captor ArgumentCaptor<Todo> captor;
 
     @Test
     public void should_pass_all_mandatory_parameters() throws Exception {
-        var todoDto = new ToDoDto("test task", true);
+        final var todoDto = new ToDoDto("test task", true);
         mvc.perform(post("/todos").contentType("application/json").content(asJsonString(todoDto)))
             .andDo(print())
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
         //check all fields passed to DB layer
-        verify(todoRepository).save(captor.capture());
+        verify(service).saveNew(captor.capture());
         Assertions.assertThat(captor.getValue().getTitle()).isEqualTo("test task");
         Assertions.assertThat(captor.getValue().getIsCompleted()).isTrue();
     }
