@@ -2,10 +2,8 @@ package com.devatlant.todo.business.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +12,7 @@ import java.time.OffsetDateTime;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Audited
@@ -28,7 +27,8 @@ public class Todo{
     @Column(name = "is_completed")
     private Boolean isCompleted;
 
-    @CreatedDate
+    @CreationTimestamp
+    //@CreatedDate
     @Column(updatable = false, name = "created_at")
     private OffsetDateTime createdAt;
     @UpdateTimestamp
