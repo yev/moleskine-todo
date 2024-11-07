@@ -11,3 +11,5 @@ used technologies:
 - hibernate envers for entity auditing
 - FlyWay
 - buildScan from #Gradle
+- TestContainers
+- 
