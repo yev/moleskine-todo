@@ -1,5 +1,5 @@
 <template>
-  <HelloWorld />
+  <TodoList />
 </template>
 
 <script lang="ts" setup>

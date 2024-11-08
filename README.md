@@ -12,4 +12,4 @@ used technologies:
 - FlyWay
 - buildScan from #Gradle
 - TestContainers
-- 
+- Vuetify UI for simple UI display of all todos
