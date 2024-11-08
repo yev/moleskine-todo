@@ -8,6 +8,13 @@
 	<name>todo microservice</name>
     <packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
+    <url>https://github.com/yev/moleskine-todo</url>
+    <scm>
+        <url>https://github.com/yev/moleskine-todo</url>
+    </scm>
+    <issueManagement>
+        <url>https://github.com/yev/moleskine-todo/issues</url>
+    </issueManagement>
     <modules>
         <module>business</module>
         <module>api</module>
