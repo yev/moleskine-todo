@@ -1,5 +1,5 @@
-# moleskine-todo
-pet project for practicing technologies after **devoxx2024** at Antwerpen
+# Spring Boot app 
+pet project for practicing technologies after **devoxx2024** at 📍Antwerpen
 
 used technologies:
 - Java 22
