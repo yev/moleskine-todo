@@ -38,7 +38,8 @@ public class ApiContractSliceTest {
 
     @Test
     public void should_pass_all_mandatory_parameters() throws Exception {
-        final var todoDto = new ToDoDto("test task", true);
+        final var todoDto = new ToDoDto("test task");
+        todoDto.setIsCompleted(true);
         mvc.perform(post("/todos").contentType("application/json").content(asJsonString(todoDto)))
             .andDo(print())
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());

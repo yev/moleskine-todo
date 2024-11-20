@@ -17,7 +17,6 @@ components:
             type: object
             required:
                 - title
-                - isCompleted
             properties:
                 id:
                     type: integer
@@ -31,6 +30,7 @@ components:
                     type: boolean
                     description: is this todo item is done
                     example: true
+                    default: false
                 createdAt:
                     type: string
                     format: date-time
@@ -147,6 +147,19 @@ paths:
                   description: The title of the todo to search for
                   schema:
                       type: string
+            responses:
+                '200':
+                    description: List of todos matching the search criteria
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/ToDoDto'
+    /todos/:
+        get:
+            summary: get all todos from the database
+            operationId: findAll
             responses:
                 '200':
                     description: List of todos matching the search criteria

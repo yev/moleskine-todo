@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * @author yevgen voronetski
@@ -45,11 +47,29 @@ public class Controller implements TodosApi {
     }
 
     @Override
+    public ResponseEntity<List<ToDoDto>> findAll() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(todoMapper.toListDto(service.findAll()));
+    }
+
+    @Override
     public ResponseEntity<ToDoDto> updateTodo(final ToDoDto toDoDto) {
         final var updatedTodoOpt = service.update(todoMapper.fromDto(toDoDto));
         return updatedTodoOpt
             .map(todo -> ResponseEntity.ok(todoMapper.toDto(todo)))
             .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(toDoDto));
+    }
+
+    @Override
+    public ResponseEntity<ToDoDto> getTodoById(Integer id) {
+        final var todoEntityOpt = service.findBy(id);
+        return todoEntityOpt
+            .map(todo -> ResponseEntity.ok(todoMapper.toDto(todo)))
+            .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

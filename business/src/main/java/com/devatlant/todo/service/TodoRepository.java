@@ -11,4 +11,5 @@ import java.util.List;
 @Component
 public interface TodoRepository extends CrudRepository<Todo, Integer> {
     List<Todo> findAllByTitleLike(String searchString);
+    List<Todo> findAllByOrderById();
 }

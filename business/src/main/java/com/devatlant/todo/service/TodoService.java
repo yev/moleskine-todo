@@ -29,6 +29,10 @@ public class TodoService {
         return todoRepository.findAllByTitleLike(likeWildcardsSearch);
     }
 
+    public List<Todo> findAll() {
+        return todoRepository.findAllByOrderById();
+    }
+
 
     @Transactional
     public Optional<Todo> update(Todo todo){
@@ -37,7 +41,11 @@ public class TodoService {
             log.error("todo with id {} is not found in db", todo.getId());
             return Optional.empty();
         }
-        return Optional.of(todoRepository.save(entityOpt.get()));
+        return Optional.of(todoRepository.save(todo));
+    }
+
+    public Optional<Todo> findBy(final int id){
+        return todoRepository.findById(id);
     }
 
 }
