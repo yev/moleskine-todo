@@ -55,7 +55,15 @@ components:
             type: array
             items:
                 $ref: "#/components/schemas/ApiErrorItem"
-
+    securitySchemes:
+        web-api-testing:
+            type: oauth2
+            flows:
+                implicit:
+                    authorizationUrl: http://localhost:9090/keycloackFakeUrl
+                    scopes:
+                        "entity:read": read entity role
+                        "entity:write": write entity role
 
 paths:
     /todos:
@@ -84,6 +92,9 @@ paths:
         patch:
             summary: update existing todo
             operationId: updateTodo
+            security:
+                - web-api-testing:
+                    - "entity:write"
             requestBody:
                 required: true
                 content:
@@ -160,6 +171,9 @@ paths:
         get:
             summary: get all todos from the database
             operationId: findAll
+            security:
+                - web-api-testing:
+                      - "entity:read"
             responses:
                 '200':
                     description: List of todos matching the search criteria
