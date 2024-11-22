@@ -8,6 +8,7 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@elastic/apm-rum-vue": "^2.1.7",
     "@mdi/font": "7.4.47",
     "axios": "^1.7.7",
     "core-js": "^3.37.1",
