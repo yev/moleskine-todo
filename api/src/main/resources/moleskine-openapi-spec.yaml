@@ -56,14 +56,9 @@ components:
             items:
                 $ref: "#/components/schemas/ApiErrorItem"
     securitySchemes:
-        web-api-testing:
-            type: oauth2
-            flows:
-                implicit:
-                    authorizationUrl: http://localhost:9090/keycloackFakeUrl
-                    scopes:
-                        "entity:read": read entity role
-                        "entity:write": write entity role
+        OpenID:
+            type: openIdConnect
+            openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
 paths:
     /todos:
@@ -93,7 +88,7 @@ paths:
             summary: update existing todo
             operationId: updateTodo
             security:
-                - web-api-testing:
+                - OpenID:
                     - "entity:write"
             requestBody:
                 required: true
@@ -172,7 +167,7 @@ paths:
             summary: get all todos from the database
             operationId: findAll
             security:
-                - web-api-testing:
+                - OpenID:
                       - "entity:read"
             responses:
                 '200':

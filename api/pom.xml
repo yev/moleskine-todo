@@ -111,6 +111,7 @@
                             <configOptions>
                                 <useJakartaEe>true</useJakartaEe>
                                 <interfaceOnly>true</interfaceOnly>
+                                <useSpringSecurity>true</useSpringSecurity>
                             </configOptions>
                             <inputSpec>
                                 ${project.basedir}/src/main/resources/moleskine-openapi-spec.yaml
