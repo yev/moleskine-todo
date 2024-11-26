@@ -55,6 +55,19 @@ components:
             type: array
             items:
                 $ref: "#/components/schemas/ApiErrorItem"
+
+        PageDTO:
+            description: minimal Page response without content property
+            type: object
+            properties:
+                number:
+                    type: integer
+                size:
+                    type: integer
+                totalElements:
+                    type: integer
+                totalPages:
+                    type: integer
     securitySchemes:
         OpenID:
             type: openIdConnect
@@ -166,6 +179,7 @@ paths:
         get:
             summary: get all todos from the database
             operationId: findAll
+            x-spring-paginated: true
             security:
                 - OpenID:
                       - "entity:read"
@@ -175,6 +189,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/ToDoDto'
+                                type: object
+                                title: PageToDoDTO
+                                properties:
+                                    content:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/ToDoDto'
+                                        default: [ ]
+                                    page:
+                                        $ref: "#/components/schemas/PageDTO"

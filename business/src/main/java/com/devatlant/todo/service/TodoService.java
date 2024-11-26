@@ -3,6 +3,8 @@ package com.devatlant.todo.service;
 import com.devatlant.todo.business.entity.Todo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -29,8 +31,8 @@ public class TodoService {
         return todoRepository.findAllByTitleLike(likeWildcardsSearch);
     }
 
-    public List<Todo> findAll() {
-        return todoRepository.findAllByOrderById();
+    public Page<Todo> findAll(Pageable pageable) {
+        return todoRepository.findAll(pageable);
     }
 
 

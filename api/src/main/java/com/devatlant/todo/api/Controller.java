@@ -2,12 +2,14 @@ package com.devatlant.todo.api;
 
 import com.devatlant.todo.mapper.TodoMapper;
 import com.devatlant.todo.model.ApiErrorItem;
+import com.devatlant.todo.model.PageToDoDTO;
 import com.devatlant.todo.model.ToDoDto;
 import com.devatlant.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.GitProperties;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * @author yevgen voronetski
@@ -47,13 +47,8 @@ public class Controller implements TodosApi {
     }
 
     @Override
-    public ResponseEntity<List<ToDoDto>> findAll() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return ResponseEntity.ok(todoMapper.toListDto(service.findAll()));
+    public ResponseEntity<PageToDoDTO> findAll(Pageable pageable) {
+        return ResponseEntity.ok(todoMapper.toPage(service.findAll(pageable)));
     }
 
     @Override

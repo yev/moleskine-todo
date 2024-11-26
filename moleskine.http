@@ -11,6 +11,7 @@ Content-Type: application/json
 GET http://localhost:8080/todos/search?title=yev
 
 ### modify existing todo
+
 PATCH  http://localhost:8080/todos
 Content-Type: application/json
 
@@ -19,4 +20,8 @@ Content-Type: application/json
     "title": "modified todo",
     "isCompleted": true
 }
+
+### test pageable
+
+GET  localhost:8080/todos/?page=2&size=2&sort=id
 
