@@ -1,2 +1,3 @@
 .mvn/.develocity/
+*.json
 log.*
