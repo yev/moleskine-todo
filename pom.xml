@@ -82,6 +82,15 @@
                     <failOnNoGitDirectory>true</failOnNoGitDirectory>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.17.2</version>
+                <configuration>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 <dependencies>
@@ -96,6 +105,17 @@
         <version>1.6.3</version>
         <scope>provided</scope>
         <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-junit5-plugin</artifactId>
+        <version>1.2.1</version> <!-- Use a version compatible with PIT -->
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.11.3</version> <!-- Use the version compatible with PIT -->
+        <scope>test</scope>
     </dependency>
 </dependencies>
 

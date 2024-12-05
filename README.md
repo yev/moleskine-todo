@@ -22,3 +22,4 @@ used technologies:
 - buildScan from #Gradle
 - TestContainers
 - Vuetify UI for simple UI display of all todos
+- PiTest for mutational testing experiments
