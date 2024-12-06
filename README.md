@@ -11,9 +11,9 @@
 pet project for practicing technologies after **devoxx2024** at 📍Antwerpen
 
 used technologies:
-- Java 22
+- Java 23
 - multi maven project
-- SpringBoot 6.4
+- SpringBoot 3.4
 - Open APi / Swagger generation for controllers and web models
 - Lombok
 - MapStruct
