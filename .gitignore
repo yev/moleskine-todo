@@ -1,3 +1,4 @@
 .mvn/.develocity/
 *.json
 log.*
+*.gz
