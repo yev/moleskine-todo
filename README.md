@@ -23,3 +23,22 @@ used technologies:
 - TestContainers
 - Vuetify UI for simple UI display of all todos
 - PiTest for mutational testing experiments
+
+## Kafka
+
+Run the Spring Boot with profile **kafka**
+
+1. run kafka container
+ ``` 
+  docker run -p --name moleskine-kafka 9092:9092 apache/kafka:3.9.0
+  ```
+2. go inside kafka container
+ ```
+  docker exec --workdir /opt/kafka/bin/ -it moleskine-kafka sh
+ ```
+3. inside container run the console producer script 
+```
+./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test-topic
+```
+4. type any world and Enter
+
