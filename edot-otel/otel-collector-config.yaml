@@ -1,0 +1,26 @@
+receivers:
+    otlp:
+        protocols:
+            http:
+                endpoint: "0.0.0.0:4318"
+
+exporters:
+    elasticsearch:
+        endpoints: ["http://docker.for.mac.localhost:9200"]
+        mapping:
+            mode: ecs # for ECS log format natively supported by Elasticsearch
+
+processors:
+
+service:
+    pipelines:
+        logs:
+            receivers: [ otlp ]
+            exporters: [ elasticsearch ]
+        traces:
+            receivers: [ otlp ]
+            exporters: [ elasticsearch ]
+            #TODO metrics are not supported by the Elasticsearch exporter- https://discuss.elastic.co/t/edot-elk-collector-error-dropping-cumulative-temporality-histogram/375689
+        metrics:
+            receivers: [ otlp ]
+            exporters: [ elasticsearch ]
