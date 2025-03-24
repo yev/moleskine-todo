@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>11.3.2</version>
+                <version>11.4.1</version>
                 <configuration>
                     <url>jdbc:postgresql://localhost:5432/moleskine_todo</url>
                     <validateMigrationNaming>true</validateMigrationNaming>
